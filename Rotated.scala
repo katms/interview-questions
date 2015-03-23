@@ -5,15 +5,17 @@ object Rotated {
 	  	println(is_rotated(a,b)) //true
 	  	
 	  	val c = Vector(0,1,4,5) //false
-	  	val d = Vector(2,3,4,1) //rotated 1
+	  	val d = Vector(2,3,4,1) //true
 	  	
 	  	println(is_rotated(a,c))
+	  	println(is_rotated(a,d))
 	}		
 		
 	
 	def is_rotated(a: Vector[Int], b: Vector[Int]) = {
+		//try one offset on all items, then increment
 		def try_offset(offset: Int): Boolean = {
-			
+			//check one index and increment
 			def check_index(index: Int): Boolean = {
 				if(index >= a.length) true
 				else {
@@ -21,8 +23,9 @@ object Rotated {
 					equals && check_index(index+1)
 				}
 			}
-			check_index(0)
-		}		
-		try_offset(2)
+			if(offset < a.length) check_index(0) || try_offset(offset+1)
+			else false //checked all possible offsets
+		}
+		try_offset(1)
 	}
 }
